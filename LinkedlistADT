@@ -1,0 +1,250 @@
+#include<iostream>
+using namespace std;
+class LinkedlistADT
+{
+    public:
+    struct node
+    {
+        int item;
+        node *next;
+    };
+    node *start;
+    LinkedlistADT()
+    {
+        start=NULL;
+    }
+    void view_list(void);
+    void insert_at_start(int);
+    void insert_at_end(int);
+    void insert_after(int,int);
+    node *Search(int current_item)
+    {
+        if(start==NULL)
+        {cout<<"Search N/A start=NULL";
+        return(start);}
+        else
+        {
+            node *t=new node;
+            t=start;
+            while(t->next!=NULL)
+            {
+                if(t->item==current_item)
+                {
+                    return(t);
+                }
+                else;
+                t=t->next;
+            }
+            cout<<"not fount current item";
+            return(start=NULL);
+        }
+    
+    }
+    int Search_item(int);
+    void delete_from_start(void);
+    void delete_from_end(void);
+    void delete_after(int);
+    void edit_item(int,int);
+    int count_item(void);
+    int get_first_item(void);
+    int get_last_item(void);
+    void Sort(void);
+};
+void LinkedlistADT::Sort(void)
+{
+    node *t=new node;
+    int a,b,c,d;
+    d=count_item();
+    for(a=1;a<=d;a++)
+    {
+        t=start;
+        for(b=1;b<=d-1;b++)
+        {
+            if(t->item > t->next->item)
+            {
+                c=t->next->item;
+                t->next->item=t->item;
+                t->item=c;
+            }
+            else {}
+            t=t->next;
+        }
+    }
+}
+int LinkedlistADT::get_last_item(void)
+{
+    node *sms=new node;
+    sms=start;
+    while(sms->next!=NULL)
+    {
+        sms=sms->next;
+    }
+    return(sms->item);
+}
+int LinkedlistADT::get_first_item(void)
+{
+    if(start==NULL)
+    {
+        return(-1);
+    }
+    else
+    {
+        return(start->item);
+    }
+}
+int LinkedlistADT::count_item(void)
+{
+    node *sms=new node;
+    sms=start;
+    int count=1;
+    while(sms->next!=NULL)
+    {
+        count++;
+        sms=sms->next;
+    }
+    return(count);
+}
+void LinkedlistADT::edit_item(int current_item,int new_item)
+{
+    node *t=new node;
+    t=Search(current_item);
+    t->item=new_item;
+}
+void LinkedlistADT::delete_after(int current_item)
+{
+    node *t,*s=new node;
+    t=Search(current_item);
+    s=t->next;
+    t->next=t->next->next;
+    delete(s);
+
+}
+void LinkedlistADT::delete_from_end(void)
+{
+    node *m,*s=new node;
+    m=start;
+    while(m->next!=NULL)
+    {
+        s=m;
+        m=m->next;
+    }
+    s->next=NULL;
+    delete(m);
+}
+void LinkedlistADT::delete_from_start(void)
+{
+    node *t=new node;
+    t=start;
+    start=start->next;
+    delete(t);
+}
+int LinkedlistADT::Search_item(int current_item)
+{
+    if(start==NULL) {return(-1);}
+    else
+    {
+    node *t=new node;
+    t=start;
+    int count=0;
+    while(t->next!=NULL)
+    {
+        
+        count++;
+        if(t->item==current_item)
+        {
+            return(count);
+
+        }
+        t=t->next;
+    }
+    return(-1);
+    }
+    
+}
+void LinkedlistADT::insert_after(int current_item,int item)
+{
+   if(start==NULL)
+   cout<<"NULL";
+   else
+   {
+       node *t=new node;
+       t=Search(current_item);
+       node *m=new node;
+       m->item=item;
+       m->next=t->next;
+       t->next=m;
+
+   } 
+}
+void LinkedlistADT::insert_at_end(int item)
+{
+    if(start==NULL)
+    {
+        insert_at_start(item);
+        cout<<endl<<"insert at end start=null";
+    }
+    else
+    {
+        node *t=new node;
+        t=start; 
+        while(t->next!=NULL)
+        {
+            t=t->next;
+        }
+        node *d=new node;
+        d->item=item;
+        d->next=NULL;
+        t->next=d;
+        cout<<endl<<"insert at end else condition";
+    }
+    
+
+}
+void LinkedlistADT::insert_at_start(int item)
+{
+    if(start==NULL)
+    {
+        node *t=new node;
+        t->item=item;
+        t->next=NULL;
+        start=t;
+        cout<<"\ninset at start if condition";
+    }
+    else
+    {
+        node *t=new node;
+        t->item=item;
+        t->next=start;
+        start=t;
+        cout<<"\ninsert at start else condition";
+    }
+}
+void LinkedlistADT::view_list()
+{
+    if(start==NULL)
+        cout<<"\nstart contains NULL";
+    else
+    {
+        node *t=new node;
+        t=start;
+        while(t!=NULL)
+        {
+            cout<<t->item;
+            t=t->next;
+        }
+    }
+}
+main()
+{
+    class LinkedlistADT A;
+    A.insert_at_start(6);
+    A.insert_at_start(8);
+    A.insert_at_end(9);
+    A.insert_at_end(5);
+    A.view_list();
+    cout<<endl;
+    A.Sort();
+    cout<<endl;
+    A.view_list();
+    
+}
