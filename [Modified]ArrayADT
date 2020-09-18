@@ -1,0 +1,162 @@
+#include<iostream>
+using namespace std;
+class ArrayADT
+{
+    int capacity;
+    int last_index;
+    int *p;
+    public:
+    ArrayADT()
+    {
+        capacity=0;
+        last_index=-1;
+        p=NULL;
+    }
+    ArrayADT(ArrayADT &l)
+    {
+        capacity=l.capacity;
+        last_index=l.last_index;
+        p=new int[capacity];
+        for(int i=0;i<=last_index;i++)
+        {
+            p[i]=l.p[i];
+        }
+    }
+    ~ArrayADT()
+    {
+        delete []p;
+    }
+    void Create_Array(int);
+    void Set_Array(int,int);
+    int Get_Array(int);
+    void Remove_Array(int);
+    void Edit_Array(int,int);
+    int Count_Array(void); 
+    void Sort_Array(void);
+    int Search_Array(int);
+};
+int ArrayADT::Search_Array(int value)
+{
+    for(int i=0;i<=last_index;i++)
+    {
+        if(p[i]==value)
+        {
+            return(i);
+        }
+    }
+    return -1;
+}
+void ArrayADT::Sort_Array(void)
+{
+    int i,j,k;
+    for(i=0;i<=last_index;i++)
+    {
+        for(j=i+1;j<=last_index;j++)
+        {
+            if(p[i]>p[j])
+            {
+                k=p[j];
+                p[j]=p[i];
+                p[i]=k;
+            }
+        }
+    }
+}
+int ArrayADT::Count_Array(void)
+{
+    return(last_index+1);
+}   
+void ArrayADT::Edit_Array(int index,int value)
+{
+    if(index==last_index+1)
+    {
+        last_index++;
+        p[index]=value;
+    }
+    if(index>=0 && index<=last_index)
+    {
+        p[index]=value;
+    }
+    else
+    {
+        cout<<"error";
+    }
+    
+}
+void ArrayADT::Remove_Array(int index)
+{
+    if(index>=0 && index<last_index)
+    {
+        //last_index--;
+        int i;
+        for(i==index;i<last_index;i++)
+        {
+            p[i]=p[i+1];
+        } last_index--;
+    }
+    if(index==last_index)
+    {
+        last_index--;
+        p[index]=p[index+1];
+    }
+    else
+    {
+        cout<<"error";
+    }
+    
+}
+ int ArrayADT::Get_Array(int index)
+ {
+     if(index>=0 && index<=last_index)
+     {
+         return(p[index]);
+     }
+     else
+     {
+         return(-1);
+     }
+     
+ }
+void ArrayADT::Create_Array(int c)
+{
+    capacity=c;
+    last_index=-1;
+    p=new int[c];
+}
+ void ArrayADT::Set_Array(int index,int value)
+ {
+     if(index>=0 && index<=last_index)
+     {
+        last_index++;
+        int i;
+        for(i<last_index;i>=index;i--)
+        {
+            p[i]=p[i=1];
+        }
+        p[index]=value;
+     }
+     if(index==last_index+1)
+     {
+         last_index++;
+         p[index]=value;
+     }
+     else
+     {
+         cout<<"error";
+     }
+     
+ }
+main()
+{
+    ArrayADT A;
+    A.Create_Array(5);
+    A.Set_Array(0,2);
+    A.Set_Array(1,1);
+    A.Set_Array(2,6);
+    A.Set_Array(3,3);
+    cout<<A.Get_Array(1);
+    for(int i=0;i<=3;i++)
+    {
+        cout<<A.Get_Array(i);
+    }
+}
